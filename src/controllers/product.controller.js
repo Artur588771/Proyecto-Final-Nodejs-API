@@ -1,5 +1,14 @@
+import { methods as productServices } from "../services/product.service";
 
-const getProducts = async (req, res)=>{}
+const getProducts = async (req, res)=>{
+    try {
+        const query = await productServices.readProducts(res);
+        return query
+    } catch (error) {
+        res.status(400);
+        res.send(error.message);
+    }
+}
 
 const getProduct = async (req, res)=>{}
 

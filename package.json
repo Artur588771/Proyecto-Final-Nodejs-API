@@ -4,7 +4,7 @@
   "description": "Proyecto API rest NodeJS Express",
   "main": "index.js",
   "scripts": {
-    "production": "babel-node --preset=@babel/preset-env",
+    "production": "babel-node --presets=@babel/preset-env",
     "dev": "nodemon --exec npm run production src/index.js"
   },
   "repository": {

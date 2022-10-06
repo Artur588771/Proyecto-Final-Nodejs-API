@@ -9,7 +9,10 @@ async function readProducts(response) {
 async function readProduct(body,response) {
     const connection = await getConnection();
     const result = await connection.query("SELECT * FROM products WHERE sku = ?", body.sku)
+    if(result.length !=0)    
     return response.json(result)
+    else
+    return response.status(400).json({message:"No existe el producto selecionado."});
 }
 
 async function createProduct(sku, name_product, price, description_product, url_image,response) {
@@ -17,8 +20,16 @@ async function createProduct(sku, name_product, price, description_product, url_
         return response.status(400).json({message:"Bad Request. Please fill all field."});
     }
         const connection = await getConnection();
-        const result = await connection.query("INSERT INTO `products` (`sku`, `name_product`, `price`, `description_product`, `url_image`) VALUES (?,?,?,?,?)", [sku,name_product,price,description_product,url_image])
-        return response.json(result)
+        //codigo agregado
+        const existeProducto = await connection.query("SELECT * FROM products WHERE sku = ?",sku)
+        console.log(existeProducto.length)
+        if(existeProducto.length ==0){
+            const result = await connection.query("INSERT INTO `products` (`sku`, `name_product`, `price`, `description_product`, `url_image`) VALUES (?,?,?,?,?)", [sku,name_product,price,description_product,url_image])
+            return response.json(result) 
+        }else{
+            return response.status(400).json({message:"Ya hay un articulo con dicha llave."});
+        }        
+        
 }
 
 // Listo

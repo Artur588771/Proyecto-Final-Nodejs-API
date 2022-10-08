@@ -41,10 +41,16 @@ async function updateCampeon(id, nombre, region, carril, poder,rol,dificultad,im
         return response.json(result)
 }
 
-async function deleteCampeon(body,response) {
+async function deleteCampeon(id,response) {
     const connection = await getConnection();
-    const result = await connection.query("DELETE FROM campeones WHERE id = ?", body.id)
-    return response.json(result)
+    const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
+        console.log(existeCampeon.length)
+        if(existeCampeon.length !=0){
+            const result = await connection.query("DELETE FROM campeones WHERE id = ?", id)
+            return response.json(result)
+        }else{
+            return response.status(400).json({message:"No existe campeon con dicho ID."});
+}        
 }
 
 export const methods = {    

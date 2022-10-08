@@ -49,7 +49,8 @@ const updateCampeon = async (req, res)=>{
 
 const deleteCampeon = async (req, res)=>{
     try {
-        const query = await campeonServices.deleteCampeon(req.params,res);
+        const {id} = req.params;
+        const query = await campeonServices.deleteCampeon(id,res);
         return query
     } catch (error) {
         //res.status(400);

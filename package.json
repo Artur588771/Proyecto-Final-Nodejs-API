@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "production": "babel-node --presets=@babel/preset-env",
-    "dev": "nodemon --exec npm run production src/index.js"
+    "dev": "nodemon --exec npm run production src/index.js",
+    "start": "node --exec npm run production src/index.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +40,8 @@
     "@babel/preset-env": "^7.19.3",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
+  },
+  "engines":{
+    "node": "16.x"
   }
 }

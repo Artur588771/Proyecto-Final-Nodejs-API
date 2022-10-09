@@ -6,7 +6,7 @@ import campeonRoutes from "./routes/index.routes"
 const app = express();
 
 //Puerto
-app.set("port",4000);
+app.set("port",process.env.PORT || 4000);
 
 //Midlewares
 app.use(morgan("dev"));

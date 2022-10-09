@@ -23,8 +23,7 @@ async function createCampeon(id, nombre, region, carril, poder,rol,dificultad,im
         return response.status(400).json({message:"Porfavor Rellena todos los campos."});
     }
         const connection = await getConnection();        
-        const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
-        console.log(existeCampeon.length)
+        const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)        
         if(existeCampeon.length ==0){
             const result = await connection.query("INSERT INTO `campeones` (`id`, `nombre`, `region`, `carril`, `poder`, `rol`, `dificultad`, `imagen`) VALUES (?,?,?,?,?,?,?,?)", [id,nombre,region,carril,poder,rol,dificultad,imagen])
             return response.json(result) 
@@ -40,8 +39,7 @@ async function updateCampeon(id, nombre, region, carril, poder,rol,dificultad,im
         return response.status(400).json({message:"Porfavor Rellena todos los campos."});
     }
         const connection = await getConnection();
-        const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
-        console.log(existeCampeon.length)
+        const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)        
         if(existeCampeon.length !=0){
             const result = await connection.query("UPDATE campeones SET `nombre`= ?,`region`=?,`carril`=?,`poder`=?,`rol`=?,`dificultad`=?,`imagen`=? WHERE id= ?", [nombre, region, carril, poder,rol,dificultad,imagen,id]);
         return response.json(result)
@@ -53,8 +51,7 @@ async function updateCampeon(id, nombre, region, carril, poder,rol,dificultad,im
 //Funcion para eliminar un campeon
 async function deleteCampeon(id,response) {
     const connection = await getConnection();
-    const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
-        console.log(existeCampeon.length)
+    const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)        
         if(existeCampeon.length !=0){
             const result = await connection.query("DELETE FROM campeones WHERE id = ?", id)
             return response.json(result)

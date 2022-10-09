@@ -1,11 +1,13 @@
 import {getConnection} from "./../common/connection"
 
+//Funcion para consultar todos los campeones
 async function readCampeones(response) {
     const connection = await getConnection();
     const result = await connection.query("SELECT * FROM campeones")
     return response.json(result)
 }
 
+//Funcion para consultar un campeon
 async function readCampeon(body,response) {
     const connection = await getConnection();
     const result = await connection.query("SELECT * FROM campeones WHERE id = ?", body.id)
@@ -15,12 +17,12 @@ async function readCampeon(body,response) {
     return response.status(400).json({message:"No existe el campeon selecionado."});
 }
 
+//Funcion para crear un campeon
 async function createCampeon(id, nombre, region, carril, poder,rol,dificultad,imagen,response) {
     if (id === undefined || nombre === undefined || region === undefined || carril === undefined || poder === undefined || rol === undefined || dificultad === undefined || imagen === undefined) {
         return response.status(400).json({message:"Porfavor Rellena todos los campos."});
     }
-        const connection = await getConnection();
-        //codigo agregado
+        const connection = await getConnection();        
         const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
         console.log(existeCampeon.length)
         if(existeCampeon.length ==0){
@@ -32,15 +34,23 @@ async function createCampeon(id, nombre, region, carril, poder,rol,dificultad,im
         
 }
 
+//Funcion para actualizar un campeon
 async function updateCampeon(id, nombre, region, carril, poder,rol,dificultad,imagen,response) {
     if (id === undefined || nombre === undefined || region === undefined || carril === undefined || poder === undefined || rol === undefined || dificultad === undefined || imagen === undefined) {
         return response.status(400).json({message:"Porfavor Rellena todos los campos."});
     }
         const connection = await getConnection();
-        const result = await connection.query("UPDATE campeones SET `nombre`= ?,`region`=?,`carril`=?,`poder`=?,`rol`=?,`dificultad`=?,`imagen`=? WHERE id= ?", [nombre, region, carril, poder,rol,dificultad,imagen,id]);
+        const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
+        console.log(existeCampeon.length)
+        if(existeCampeon.length !=0){
+            const result = await connection.query("UPDATE campeones SET `nombre`= ?,`region`=?,`carril`=?,`poder`=?,`rol`=?,`dificultad`=?,`imagen`=? WHERE id= ?", [nombre, region, carril, poder,rol,dificultad,imagen,id]);
         return response.json(result)
+        }else{
+            return response.status(400).json({message:"No existe campeon con dicho ID."});
+}           
 }
 
+//Funcion para eliminar un campeon
 async function deleteCampeon(id,response) {
     const connection = await getConnection();
     const existeCampeon = await connection.query("SELECT * FROM campeones WHERE id = ?",id)
@@ -58,5 +68,5 @@ export const methods = {
     readCampeon,
     createCampeon,
     updateCampeon,
-    deleteCampeon    
+    deleteCampeon 
 }

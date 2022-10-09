@@ -1,6 +1,7 @@
 import mysql from "promise-mysql"
 import config from "./constants"
 
+//Se crea la conexion a la BD especificada
 const connection = mysql.createConnection({
     host: config.HOST,
     database: config.DB,

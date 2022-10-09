@@ -3,10 +3,10 @@ import { methods as campeonController } from "./../controllers/campeon.controlle
 
 const router = Router();
 
-router.get("/", campeonController.getCampeones); // GET http://localhost:5000/api-restfull/products/
-router.get("/:id", campeonController.getCampeon); // GET http://localhost:5000/api-restfull/products/:sku
-router.post("/", campeonController.createCampeon); // POST http://localhost:5000/api-restfull/products/
-router.put("/:id", campeonController.updateCampeon); // PUT http://localhost:5000/api-restfull/products/:sku
-router.delete("/:id", campeonController.deleteCampeon);// DELETE http://localhost:5000/api-restfull/products/:sku
+router.get("/", campeonController.getCampeones); // GET http://localhost:4000/api-restfull/campeones/
+router.get("/:id", campeonController.getCampeon); // GET http://localhost:4000/api-restfull/campeones/:id
+router.post("/", campeonController.createCampeon); // POST http://localhost:4000/api-restfull/campeones/
+router.put("/:id", campeonController.updateCampeon); // PUT http://localhost:4000/api-restfull/campeones/:id
+router.delete("/:id", campeonController.deleteCampeon);// DELETE http://localhost:4000/api-restfull/campeones/:id
 
 export default router;
